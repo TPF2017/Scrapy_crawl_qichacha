@@ -1,5 +1,6 @@
 # Scrapy_crawl_qichacha
 
+<<<<<<< HEAD
 #### Requests:
 
 python-version: python 3.6
@@ -23,4 +24,9 @@ scrapy crawl qcc
 Then follow the instructions that showing in the window.
 
 ![](C:\Users\37661\Desktop\cmd.png)
+=======
+python-version: 3.6
+需要自行安装：Scrapy
+
+>>>>>>> ce5701c654661cb567c3bc6b62d3dfbc20e2bf9f
 
