@@ -12,7 +12,7 @@ class QccSpider(scrapy.Spider):
     provinces = provinces
     print('各省对应的简称如下：')
     for i in range(8):
-        print(list(provinces_dict.items())[4 * i: 4 * i + 3] )
+        print(list(provinces_dict.items())[4 * i: 4 * i + 4] )
     print('请输入要爬取的省份的简称：（例如：AH）')
     province = input()
     print('请输入要爬取的页码范围：（例如：1-20）')
@@ -38,20 +38,6 @@ class QccSpider(scrapy.Spider):
         self.num_user_agent += 1
         return self.headers
 
-    # headers = {
-    # 'Connection': 'keep - alive',  # 保持链接状态
-    # 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36'
-    # }
-
-    # def start_requests(self):
-    #     for i in self.provinces:
-    #         for j in range(1, 501):
-    #             time.sleep(5)
-    #             yield scrapy.Request(
-    #                 url='https://www.qichacha.com/g_%s_%d.html' % (i, j),
-    #                 headers=self.headers_next(),
-    #                 cookies=self.cookie_next(),
-    #                 callback=self.parse_firm_url)
 
     def start_requests(self):
         for i in range(self.pages[0], self.pages[1] + 1):
@@ -123,13 +109,6 @@ class QccSpider(scrapy.Spider):
             if cn >= len(body):
                 break
 
-        # for i in range(n):
-        #     if body[2 * i].strip() != '':
-        #         dic[body[2 * i].strip()] = body[2 * i + 1].strip()
-
         dic[self.province] = self.pages
         yield dic
-#
-# url = 'https://www.qichacha.com/firm_9c23a19a9123341ac8c0ce6471e1fad2.html'
-# r = scrapy.Request(url=url, cookies=cookie, headers=headers)
-# fetch(r)
+
