@@ -63,19 +63,27 @@ class QccSpider(scrapy.Spider):
         dic = {}
         title = response.css('.content').css('.title').css('h1').extract()[0].split('>')[1].split('<')[0]
         content = response.css('.content').css('.cvlu')
-        phone = content[0].css('span').xpath('text()').extract()[-1].strip()
-        web_site = content[1].xpath('text()').extract()[0].strip()
-        try:
-            mail = content[2].css('a').xpath('text()').extract()[0].strip()
-        except:
-            mail = content[2].xpath('text()').extract()[0].strip()
-        address = content[3].css('a')[0].xpath('text()').extract()[0].strip()
+        if len(content) > 4:
+            phone = content[1].css('span').xpath('text()').extract()[-1].strip()
+            web_site = content[2].css('a').xpath('@href').extract()[2].strip()
+            try:
+                mail = content[3].css('a').xpath('text()').extract()[0].strip()
+            except:
+                mail = content[3].xpath('text()').extract()[0].strip()
+            address = content[4].css('a')[0].xpath('text()').extract()[0].strip()
+        else:
+            phone = content[0].css('span').xpath('text()').extract()[-1].strip()
+            web_site = content[1].xpath('text()').extract()[0].strip()
+            try:
+                mail = content[2].css('a').xpath('text()').extract()[0].strip()
+            except:
+                mail = content[2].xpath('text()').extract()[0].strip()
+            address = content[3].css('a')[0].xpath('text()').extract()[0].strip()
 
         dic['公司名称'] = title
         dic['电话'] = phone
         dic['官网'] = web_site
         dic['邮箱'] = mail
-        # dic['地址'] = address
 
         tbody = response.css('.ntable').css('tr').css('td').xpath('text()').extract()
 
@@ -90,7 +98,6 @@ class QccSpider(scrapy.Spider):
                 end = body_lst.index(item) + 2
 
         body = body_lst[start: end]
-        # n = len(body) // 2
 
         keys = ['注册资本：', '实缴资本：', '经营状态：', '成立日期：',
                 '统一社会信用代码：', '纳税人识别号：', '注册号：', '组织机构代码：',
@@ -111,4 +118,3 @@ class QccSpider(scrapy.Spider):
 
         dic[self.province] = self.pages
         yield dic
-
