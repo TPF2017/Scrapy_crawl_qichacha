@@ -10,7 +10,7 @@ Make sure that scrapy has been installed in your computer.
 
 At first you need visit https://www.qichacha.com/user_login and login to get your cookie.
 
-Then clear the cookies that exist in the cookies before and paste your own cookie into it. 
+Then clear the cookies that exist in the cookies.txt before, and paste your own cookie into it. 
 
 You can paste more than one cookies into it and which will make the crawler better performance beacause of the limitation of the website visiting.
 
